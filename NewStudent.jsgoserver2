@@ -1,0 +1,61 @@
+import React, { useState } from "react";
+
+
+const NewStudent = () => {
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [date, setdate] = useState("");
+  
+
+  async function submit() {
+
+    var course = {
+      name: name,
+      email: email,
+      date: date,
+    };
+    const requestOptions={
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(course),
+        // mode:'no-cors'
+      };
+      const response=await fetch('http://localhost:8090/createStudent',requestOptions)
+       const body = await  response.json()
+      alert("user added")
+  }
+
+  return (
+    <div className="App ">
+      <center>
+        <input
+          type="text"
+          placeholder="username"
+          value={name}
+          onChange={(e) => {
+            setname(e.target.value);
+          }}
+        />
+        <br />
+        <input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
+        />
+        <br />
+        <input
+          type="date"
+          placeholder="dd/mm/yyyy"
+          value={date}
+          onChange={(e) => setdate(e.target.value)}
+        />
+        <br />
+        <button onClick={submit}>submit</button>
+      </center>
+      
+    </div>
+  );
+};
+
+export default NewStudent;
